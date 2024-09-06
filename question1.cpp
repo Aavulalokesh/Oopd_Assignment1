@@ -57,7 +57,19 @@ public:
         for (int i = 0; i < count; i++) {
             if (rates[i].year > purchaseYear && rates[i].year <= sellingYear) {
                 double growthFactor = (1 + ((rates[i].growth_price ) / 100.0));
-                cout << growthFactor << endl;
+              //  cout << growthFactor << endl;
+                sellingPrice *= growthFactor;
+            }
+        }
+        return sellingPrice;
+    }
+
+    double calculateSellingPriceOLD(Data rates[], int count) {
+        double sellingPrice = initialPrice;
+        for (int i = 0; i < count; i++) {
+            if (rates[i].year > purchaseYear && rates[i].year <= sellingYear) {
+                double growthFactor = (1 + ((rates[i].growth_price - rates[i].in_rate ) / 100.0));
+               // cout << growthFactor << endl;
                 sellingPrice *= growthFactor;
             }
         }
@@ -67,6 +79,11 @@ public:
     double calculateLTCG(double sellingPrice) {
         double gain = sellingPrice - initialPrice;
         return gain > 0 ? 0.125 * gain : 0; // 20% tax on the gain
+    }
+
+    double calculateLTCGOLD(double sellingPrice) {
+        double gain = sellingPrice - initialPrice;
+        return gain > 0 ? 0.2 * gain : 0; // 20% tax on the gain
     }
 };
 
@@ -90,6 +107,20 @@ int main(int argc, char *argv[]) {
 
     cout << "Estimated Selling Price: Rs " << sellingPrice << " lakhs" << endl;
     cout << "Long-term Capital Gains Tax (LTCG): Rs " << LTCG << " lakhs" << endl;
+
+    double OldPrice =  taxCalculator.calculateSellingPriceOLD(inflationRate.rates, inflationRate.count);
+    double Oldtax = taxCalculator.calculateLTCGOLD(OldPrice);
+
+    double diff = Oldtax-LTCG;
+    if(diff>0){
+        cout<<"Old tax is higher by a value of "<<diff<<endl;
+    }
+    else if(diff<0){
+         cout<<"New tax is higher by a value of "<<(-diff)<<endl;
+    }
+    else{
+        cout<<"Both have same tax rates"<<endl;
+    }
 
     return 0;
 }
