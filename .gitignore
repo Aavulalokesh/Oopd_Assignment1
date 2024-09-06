@@ -1,3 +1,2 @@
 *.exe
-price-inflation.csv
-.vscode
+*.o
