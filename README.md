@@ -56,5 +56,8 @@ Assumptions
 Initial Price: The program assumes an initial purchase price of Rs 50 lakhs.
 Purchase Year: The purchase year is hardcoded as 2010. You can modify this value directly in the main.cpp file.
 Record Limit: The program can handle up to 100 records from the CSV file
+
+------------------------------------------------------------------------
 After calculating Everything We need to compare the results which method is better
+-------------------------------------------------------------------------
 Source :-- I used the chatgpt to get some insights for me whenever i am not able to solve the errors and i also used to write the readme file
